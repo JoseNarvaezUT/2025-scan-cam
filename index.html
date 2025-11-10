@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Lector de QR/Barras</title>
+    <style>
+        /* Estilos básicos para centrar el lector */
+        body { text-align: center; font-family: sans-serif; }
+        #reader { width: 400px; margin: 20px auto; }
+        #resultado { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>Escáner de Códigos QR/Barras</h1>
+
+    <div id="reader"></div>
+
+    <p>Código detectado: <span id="resultado">Esperando escaneo...</span></p>
+
+    <script src="https://unpkg.com/html5-qrcode"></script>
+
+    <script src="app.js"></script>
+</body>
+</html>
