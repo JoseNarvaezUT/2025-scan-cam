@@ -2,23 +2,167 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Lector de QR/Barras</title>
     <style>
-        /* Estilos básicos para centrar el lector */
-        body { text-align: center; font-family: sans-serif; }
-        #reader { width: 400px; margin: 20px auto; }
-        #resultado { margin-top: 20px; font-weight: bold; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body { 
+            text-align: center; 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        #reader { 
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto 20px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            background: #000;
+            display: none;
+        }
+
+        #reader video {
+            width: 100% !important;
+            height: auto !important;
+            display: block;
+        }
+
+        #btnIniciar {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+
+        #btnIniciar:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        #btnIniciar:active {
+            transform: translateY(0);
+        }
+
+        #btnIniciar:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        #btnDetener {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1rem;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+            font-weight: bold;
+            margin: 10px;
+            display: none;
+        }
+
+        #btnDetener:hover {
+            background: #da190b;
+            transform: translateY(-2px);
+        }
+
+        .resultado-container {
+            background: rgba(255,255,255,0.95);
+            color: #333;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 20px auto;
+            max-width: 500px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+            min-height: 80px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #resultado { 
+            font-weight: bold;
+            font-size: 1.1rem;
+            word-break: break-all;
+            color: #667eea;
+        }
+
+        .estado {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 20px;
+            }
+
+            #btnIniciar {
+                padding: 12px 30px;
+                font-size: 1rem;
+            }
+
+            body {
+                padding: 15px;
+            }
+        }
+
+        /* Estilos para iOS */
+        @supports (-webkit-touch-callout: none) {
+            #reader {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+            }
+        }
     </style>
 </head>
 <body>
-    <h1>Escáner de Códigos QR/Barras</h1>
+    <h1>📱 Escáner de Códigos QR/Barras</h1>
+
+    <button id="btnIniciar">Iniciar Escaneo</button>
+    <button id="btnDetener">Detener Escaneo</button>
 
     <div id="reader"></div>
 
-    <p>Código detectado: <span id="resultado">Esperando escaneo...</span></p>
+    <div class="resultado-container">
+        <p style="margin-bottom: 8px; color: #666;">Código detectado:</p>
+        <div id="resultado">Presiona "Iniciar Escaneo" para comenzar</div>
+        <div class="estado" id="estado"></div>
+    </div>
 
     <script src="https://unpkg.com/html5-qrcode"></script>
-
     <script src="app.js"></script>
 </body>
 </html>
